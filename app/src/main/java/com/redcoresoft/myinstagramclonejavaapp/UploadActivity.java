@@ -25,12 +25,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.redcoresoft.myinstagramclonejavaapp.databinding.ActivityUploadBinding;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class UploadActivity extends AppCompatActivity {
@@ -60,6 +64,8 @@ public class UploadActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         storageReference = firebaseStorage.getReference();
 
+
+
     }
 
     public void btnShare(View view) {
@@ -75,7 +81,46 @@ public class UploadActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                //Download Url to feed ?
+                //Download Url to feed
+                StorageReference newReferenceForDownloadUrl = firebaseStorage.getReference(imageName);
+                newReferenceForDownloadUrl.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String downloadUrlForImage = uri.toString();
+                        String comment = binding.txtsharedComment.getText().toString();
+
+                        FirebaseUser user = auth.getCurrentUser();
+                        String email = user.getEmail();
+
+                        HashMap<String, Object> postData = new HashMap<>();
+                        postData.put("useremail",email);
+                        postData.put("downloadurlforimage",downloadUrlForImage);
+                        postData.put("comment",comment);
+                        postData.put("date", FieldValue.serverTimestamp());
+
+                        firebaseFirestore.collection("Posts").add(postData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Intent intent = new Intent(UploadActivity.this,FeedActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(UploadActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                       Toast.makeText(UploadActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
+
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
