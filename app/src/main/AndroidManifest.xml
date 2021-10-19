@@ -10,9 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UploadActivity"></activity>
-        <activity android:name=".FeedActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activitys.UploadActivity"></activity>
+        <activity android:name=".Activitys.FeedActivity" />
+        <activity android:name=".Activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

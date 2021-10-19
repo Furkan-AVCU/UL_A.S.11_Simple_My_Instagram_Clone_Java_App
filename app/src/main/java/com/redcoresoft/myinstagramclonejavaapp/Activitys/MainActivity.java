@@ -1,4 +1,4 @@
-package com.redcoresoft.myinstagramclonejavaapp;
+package com.redcoresoft.myinstagramclonejavaapp.Activitys;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
