@@ -7,10 +7,11 @@ Simple Instagram clone
 In this project users can sign up and sign in the Minstagram
 users can share post with images and comment. All users able to see all posts
 
-- I implemented saving data on Firebase and pulling data on Firebase
+- (Information) I am using Picasso library to import image from Firebase to RecyclerView
 
-- I added PostAdapter and PostModel. With these things, users can share image posts and comment on UploadActivity and all users can see all posts in FeedActivity.
-- I am using Picasso library to import image from Firebase to RecyclerView
+- (Update) I implemented saving data on Firebase and pulling data on Firebase
+
+- (Update) I added PostAdapter and PostModel. With these things, users can share image posts and comment on UploadActivity and all users can see all posts in FeedActivity.
 
 # Minstegram Screenshots and Explanations
 -----------------------------------------------
