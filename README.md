@@ -1,6 +1,8 @@
 # UL_A.S.11_Simple_My_Instagram_Clone_Java_App
 Simple Instagram clone
 
+(You can try Minstegram on your phone i uploaded apk)
+
 - With this project i learned Firebase transactions and i do some practice. 
 In this project users can sign up and sign in the Minstagram
 users can share post with images and comment. All users able to see all posts
